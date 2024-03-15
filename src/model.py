@@ -1,11 +1,6 @@
 import torch
 import torch.nn as nn
 import config
-import torch
-from torch import nn
-import torchvision.models as models
-
-import torch.nn as nn
 import torchvision.models as models
 
 class ObjectDetector(nn.Module):
@@ -23,7 +18,7 @@ class ObjectDetector(nn.Module):
         self.conv3 = nn.Conv2d(256, 128, kernel_size=3, stride=1, padding=1)
 
         # Average pooling layer
-        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        self.avgpool = nn.AvgPool2d((1, 1))
 
         # Fully connected layer for classification
         self.fc = nn.Linear(128, num_classes)
@@ -51,7 +46,6 @@ class ObjectDetector(nn.Module):
         x = self.fc(x)
 
         return x
-
 
 
 if __name__ == "__main__":
