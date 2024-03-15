@@ -1,7 +1,8 @@
 import torch
 import torch.nn as nn
 
-""" 
+"""
+This architecture is inspired from the YOLOv3 paper. Code has been explained by comments throughout the implementation. 
 Tuple (filters, kernel_size, stride) 
 "B": residual block + repeats (loops, as per paper)
 "S": scale prediction block + yolo loss
