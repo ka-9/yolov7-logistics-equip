@@ -1,7 +1,9 @@
 # yolov7-logistics-equip
+
 A YOLOv7 Computer Vision Model with Inference API to classify material handling equipment (jacks, dollies, and bins).
 
 # Procedure
+
 - This repo focused on 2 approaches, the first one was fine-tuning the YOLOv7 model and the second one had the goal of implementing the YOLOv3 model from scratch and training it.
 - The purpose of this repo is only for practice. The code in the repo offers a solid foundation for CNN and computer vision models, fine tuning them on custom, preprocessed data and inferring from them.
 - The data files were not included in this repo due to their size. The data was stored as follows:
@@ -21,41 +23,46 @@ BMW_data
 │   └── val
 
 └── labels
-    
+
   ├── train
-   
+
   ├── test
-   
+
   └── val
 
-    
 ---
 
 # Data Pipeline
+
 ## Data Formatting: JSON to YOLO
+
 - In order to train our YOLOv7 model, we need to convert the data from json to txt YOLO format
 - The yolo format is as follows: class_label x_center y_center width height
 - This has been handled in the `data_pipeline.ipynb` notebook.
 - Additionally, the data has been visualized for ground truth reference.
-![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/177347be-e310-47ef-bebe-87a2ddbed948)
-![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/dfc91345-0b3d-4d36-b0e2-3a7b3961066d) 
+  ![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/177347be-e310-47ef-bebe-87a2ddbed948)
+  ![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/dfc91345-0b3d-4d36-b0e2-3a7b3961066d)
 
 ## Data bboxes Clamping
+
 - In some instances, noisy data induced some of the normalized bounding box dimensions to be larger than 1. This means that in the original data, the coordinates for the bounding boxes were larger than the size / boundaries of the said image.
 - To address this issue, a condition was added in the codee to clamp the data points with noisy data, since they could affect the process during data augmentation and model training.
 - The faulty data accounted for < 5% of the overall data (136 instances).
 
 ## Data Augmentation: Albumentations
+
 - The data was then augmented using an [Albumentations](https://albumentations.ai/docs/getting_started/) transformation pipeline
-![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/87b7522b-6eed-40d0-a686-dcd9e21d648a)
+  ![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/87b7522b-6eed-40d0-a686-dcd9e21d648a)
 
 ## Train Test Val Split
+
 - After formatting our data and augmenting it, we split the data into train and val
-- Although some references suggest not to include augmented data in validation, in our scenario augmented data can help the model better by exposing it to a wider variety of examples during validation 
+- Although some references suggest not to include augmented data in validation, in our scenario augmented data can help the model better by exposing it to a wider variety of examples during validation
 - The train val split was handled in `data_pipeline.ipynb`
 - The split ratio was chosen to be 20% of training data for validation
 
 ## Data IDs reformatting
+
 - While cleaning the data, we realized that the class labels were:
   1. **unordered**, which may cause issues when encoding while training the model, since the model might infer that there are other classes in between. Therefore, additional classes wuld have to be passed to the model which is inefficient and unnecessary, and could lead to inconveniences.
   2. **different classes between train (and val) and test**. In fact, the classes 4, 5 and 7 were used for `dollies`, `bins` and `jacks` respectively; while in test, the labels were 4, 11 and 9 respectively.
@@ -68,7 +75,9 @@ BMW_data
 ---
 
 # YOLOv7 Training
+
 ## Preparing for Training
+
 - The first step was cloning the repo [https://github.com/WongKinYiu/yolov7/](https://github.com/WongKinYiu/yolov7/)
 - `cd /yolov7` and `pip install requirements.txt`
 - In addition, we downloaded pretrained yolov7 frozen weights in order to perform fine tuning on top of them
@@ -78,6 +87,7 @@ BMW_data
 - The new weights will be saved under the name `yolo_bmw_det2` in the `runs` folder
 
 ## Training the model
+
 - While training the model, it is important to always monitor the performance and evolution of critical parameters such as precision, recall, mAP score, loss.
 - Tensorboard was used in order to monitor these parameters, as shown below:
 
@@ -100,28 +110,26 @@ BMW_data
 ![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/results.png)
 
 ## Inference Test
+
 ![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_labels.jpg)
 ![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch1_labels.jpg)
 ![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_labels.jpg)
 
 # ONNX Export
+
 - The `yolo_bmw_det3` model weights were exported as onnx: `!python export.py --weights runs/train/yolo_bmw_det3/weights/best.pt --grid --end2end --simplify --topk-all 100 --iou-thres 0.65 --conf-thres 0.35 --img-size 640 640 --max-wh 640`
 
 # Netro Visualization
+
 - Netro .svg and .png graphs can be found [here](https://github.com/ka-9/yolov7-logistics-equip/blob/main/netron/best.onnx.png)
 
 ---
 
-# YOLOv3 Model from scratch
-- The purpose of working on this model was to acquire a deeper understanding of the fundementals of YOLOv3, how it works, its core components, as well as the main differences between YOLOv3 and the model we previously implemented during lectures: YOLOv1.
+# RetinaNet inspired model
 
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov3_paper/Network-architecture-of-YOLOv3.png)
-
-- As we can see, the architecture already differs from YOLOv1. In YOLOv3, researchers worked on improving inference of smaller and larger anchor boxes. In fact, the three heads (Scaled Predictions) insure that YOLOv3 is capable of detecting large as well smaller objects in an image.
-- This works by allocating smaller anchor boxes for the larger scaled predictions (52 * 52 and 26 * 26) and larger anchor boxes for 26 * 26.
-- The model architecture also employs upsampling techniques combined with skip connections in order to better detect the features in an image.
-- YOLOv3 uses a new **backbone network** architecture called Darknet-53, which is larger and more accurate than previous versions.
-Below are some figures from the training phase:
+- The purpose of working on this model was to acquire a deeper understanding of the fundementals of backbone transfer learning.
+- ResNet acts as a new **backbone network** architecture, which is larger and more accurate than starting from scratch.
+  Below are some figures from the training phase:
 
 ![Figure_2](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/c057c5a6-5dea-4f02-8686-29a64a9533fc)
 ![Figure_1](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/993fad8c-2bc8-4b49-9f22-b20269cb65b3)
@@ -130,6 +138,7 @@ Below are some figures from the training phase:
 ---
 
 # API and ONNX Inference Session
+
 - In order to take this project to the next level, we implemented a FastAPI interfacing framework that interacts with onnx inferrence sessions in order to provide a more convenient and scalable way to interact with our developed models.
 - Even though the APIs are under development, they are a proof of scalability and consitute a stable foundation for later improvements.
 - To activate runtime, navigate to api folder: `cd ./api` from root dir
@@ -137,6 +146,3 @@ Below are some figures from the training phase:
 - Open the localhost port that shows on the terminal, ex. http://127.0.0.1:8000, followed by /docs
 
 ![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/0e488598-ad4d-4eb2-aa98-fb1aa9e2f6b4)
-
-
-
