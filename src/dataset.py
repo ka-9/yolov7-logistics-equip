@@ -55,7 +55,6 @@ class BMWDataset(Dataset):
             image = augmentations["image"]
             bboxes = augmentations["bboxes"]
 
-        # Below assumes 3 scale predictions (as per the paper) and same num of anchors per scale
         targets = [torch.zeros((self.num_anchors // 3, S, S, 6)) for S in self.S]
         for box in bboxes:
             iou_anchors = iou(torch.tensor(box[2:4]), self.anchors)
@@ -104,18 +103,14 @@ def test():
     loader = DataLoader(dataset=train_dataset, batch_size=1, shuffle=True)
     for x, y in loader:
         boxes = []
-        print(x.shape)
         for i in range(y[0].shape[1]):
             anchor = scaled_anchors[i]
-            # print(anchor.shape)
-            # print(y[i].shape)
             boxes += cells_to_bboxes(
                 y[i], is_preds=False, S=y[i].shape[2], anchors=anchor
             )[0]
         boxes = nms(boxes, iou_threshold=1, threshold=0.7, box_format="midpoint")
-        print(boxes)
         img = x[0].to("cpu")
-        # plot_image(img, boxes)
+        plot_image(img, boxes)
 
 if __name__ == "__main__":
     test()
