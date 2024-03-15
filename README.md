@@ -94,4 +94,49 @@ BMW_data
 
 - After training was finished, we obtained the results below:
 
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/F1_curve.png)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/P_curve.png)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/R_curve.png)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/results.png)
+
+## Inference Test
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_labels.jpg)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch1_labels.jpg)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_labels.jpg)
+
+# ONNX Export
+- The `yolo_bmw_det3` model weights were exported as onnx: `!python export.py --weights runs/train/yolo_bmw_det3/weights/best.pt --grid --end2end --simplify --topk-all 100 --iou-thres 0.65 --conf-thres 0.35 --img-size 640 640 --max-wh 640`
+
+# Netro Visualization
+- Netro .svg and .png graphs can be found [here](https://github.com/ka-9/yolov7-logistics-equip/blob/main/netron/best.onnx.png)
+
+---
+
+# YOLOv3 Model from scratch
+- The purpose of working on this model was to acquire a deeper understanding of the fundementals of YOLOv3, how it works, its core components, as well as the main differences between YOLOv3 and the model we previously implemented during lectures: YOLOv1.
+
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov3_paper/Network-architecture-of-YOLOv3.png)
+
+- As we can see, the architecture already differs from YOLOv1. In YOLOv3, researchers worked on improving inference of smaller and larger anchor boxes. In fact, the three heads (Scaled Predictions) insure that YOLOv3 is capable of detecting large as well smaller objects in an image.
+- This works by allocating smaller anchor boxes for the larger scaled predictions (52 * 52 and 26 * 26) and larger anchor boxes for 26 * 26.
+- The model architecture also employs upsampling techniques combined with skip connections in order to better detect the features in an image.
+- YOLOv3 uses a new **backbone network** architecture called Darknet-53, which is larger and more accurate than previous versions.
+Below are some figures from the training phase:
+
+![Figure_2](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/c057c5a6-5dea-4f02-8686-29a64a9533fc)
+![Figure_1](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/993fad8c-2bc8-4b49-9f22-b20269cb65b3)
+![Figure_3](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/304098c7-be98-4094-98eb-0aa82d6f3c54)
+
+---
+
+# API and ONNX Inference Session
+- In order to take this project to the next level, we implemented a FastAPI interfacing framework that interacts with onnx inferrence sessions in order to provide a more convenient and scalable way to interact with our developed models.
+- Even though the APIs are under development, they are a proof of scalability and consitute a stable foundation for later improvements.
+- To activate runtime, navigate to api folder: `cd ./api` from root dir
+- Run the command: `uvicorn views:app --reload`
+- Open the localhost port that shows on the terminal, ex. http://127.0.0.1:8000, followed by /docs
+
+![image](https://github.com/ka-9/yolov7-logistics-equip/assets/99538511/0e488598-ad4d-4eb2-aa98-fb1aa9e2f6b4)
+
+
 
