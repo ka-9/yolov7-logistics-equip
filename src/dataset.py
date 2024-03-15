@@ -46,14 +46,18 @@ class YOLODataset(Dataset):
         label_path = os.path.join(self.label_dir, self.annotations.iloc[index, 1])
         bboxes = np.roll(np.loadtxt(fname=label_path, delimiter=" ", ndmin=2), 4, axis=1).tolist()
         img_path = os.path.join(self.img_dir, self.annotations.iloc[index, 0])
-        image = np.array(Image.open(img_path).convert("RGB"))
+        image = Image.open(img_path).convert("RGB")
+
+        # Resize the image to 416x416
+        image = image.resize((416, 416))
+        image = np.array(image)
 
         if self.transform:
             augmentations = self.transform(image=image, bboxes=bboxes)
             image = augmentations["image"]
             bboxes = augmentations["bboxes"]
 
-        # Below assumes 3 scale predictions (as paper) and same num of anchors per scale
+        # Below assumes 3 scale predictions (as per the paper) and same num of anchors per scale
         targets = [torch.zeros((self.num_anchors // 3, S, S, 6)) for S in self.S]
         for box in bboxes:
             iou_anchors = iou(torch.tensor(box[2:4]), self.anchors)
