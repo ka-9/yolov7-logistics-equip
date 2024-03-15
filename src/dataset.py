@@ -15,7 +15,7 @@ from utils import (
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-class YOLODataset(Dataset):
+class BMWDataset(Dataset):
     def __init__(
         self,
         csv_file,
@@ -68,11 +68,11 @@ class YOLODataset(Dataset):
                 scale_idx = anchor_idx // self.num_anchors_per_scale
                 anchor_on_scale = anchor_idx % self.num_anchors_per_scale
                 S = self.S[scale_idx]
-                i, j = int(S * y), int(S * x)  # which cell
+                i, j = int(S * y), int(S * x) 
                 anchor_taken = targets[scale_idx][anchor_on_scale, i, j, 0]
                 if not anchor_taken and not has_anchor[scale_idx]:
                     targets[scale_idx][anchor_on_scale, i, j, 0] = 1
-                    x_cell, y_cell = S * x - j, S * y - i  # both between [0,1]
+                    x_cell, y_cell = S * x - j, S * y - i 
                     width_cell, height_cell = (
                         width * S,
                         height * S,
@@ -92,7 +92,7 @@ class YOLODataset(Dataset):
 def test():
     anchors = config.ANCHORS
 
-    train_dataset = YOLODataset(
+    train_dataset = BMWDataset(
         "../BMW_dataset/train.csv",
         "../BMW_dataset/images/train/",
         "../BMW_dataset/labels/train/",
