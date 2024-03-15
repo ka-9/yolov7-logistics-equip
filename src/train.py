@@ -22,6 +22,7 @@ def main():
     num_epochs = 10  # Adjust number of epochs
     for epoch in range(num_epochs):
         for images, labels in train_loader:
+            images = images.permute(0, 3, 1, 2).to(config.DEVICE) # BUG fixed
             # Forward pass
             outputs = model(images)
             loss = criterion(outputs, labels)

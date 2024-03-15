@@ -13,8 +13,6 @@ from utils import (
     plot_image
 )
 
-ImageFile.LOAD_TRUNCATED_IMAGES = True
-
 class BMWDataset(Dataset):
     def __init__(
         self,
@@ -86,7 +84,6 @@ class BMWDataset(Dataset):
 
                 elif not anchor_taken and iou_anchors[anchor_idx] > self.ignore_iou_thresh:
                     targets[scale_idx][anchor_on_scale, i, j, 0] = -1  # ignore prediction
-
         return image, tuple(targets)
 
 def test():
@@ -107,18 +104,18 @@ def test():
     loader = DataLoader(dataset=train_dataset, batch_size=1, shuffle=True)
     for x, y in loader:
         boxes = []
-
+        print(x.shape)
         for i in range(y[0].shape[1]):
             anchor = scaled_anchors[i]
-            print(anchor.shape)
-            print(y[i].shape)
+            # print(anchor.shape)
+            # print(y[i].shape)
             boxes += cells_to_bboxes(
                 y[i], is_preds=False, S=y[i].shape[2], anchors=anchor
             )[0]
         boxes = nms(boxes, iou_threshold=1, threshold=0.7, box_format="midpoint")
         print(boxes)
         img = x[0].to("cpu")
-        plot_image(img, boxes)
+        # plot_image(img, boxes)
 
 if __name__ == "__main__":
     test()
