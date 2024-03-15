@@ -1,14 +1,14 @@
 import torch
 import torch.nn as nn
 import config
-import torchvision.models as models
+from torchvision.models import resnet50, ResNet50_Weights
 
 class ObjectDetector(nn.Module):
     def __init__(self, num_classes=3):
         super(ObjectDetector, self).__init__()
 
         # Backbone (pre-trained ResNet50)
-        self.backbone = models.resnet50(pretrained=True)
+        self.backbone = resnet50(weights=ResNet50_Weights.DEFAULT)
         # Modify the first layer to accept 3 channels instead of 3
         self.backbone.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)
 

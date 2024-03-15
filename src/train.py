@@ -23,9 +23,10 @@ def main():
     for epoch in range(num_epochs):
         for images, labels in train_loader:
             images = images.permute(0, 3, 1, 2).to(config.DEVICE).type(torch.cuda.FloatTensor)  # BUG fixed
+            labels_t = torch.tensor(labels)
             # Forward pass
             outputs = model(images)
-            loss = criterion(outputs, labels)
+            loss = criterion(outputs, labels_t)
 
             # Backward pass and optimize
             optimizer.zero_grad()
