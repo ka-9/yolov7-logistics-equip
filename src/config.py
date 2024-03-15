@@ -8,7 +8,7 @@ from utils import seed_everything
 DATASET = '../BMW_dataset'
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 NUM_WORKERS = 4
-BATCH_SIZE = 32
+BATCH_SIZE = 8
 IMAGE_SIZE = 416
 NUM_CLASSES = 3
 LEARNING_RATE = 1e-5
