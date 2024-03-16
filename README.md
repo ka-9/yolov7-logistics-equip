@@ -111,9 +111,10 @@ BMW_data
 
 ## Inference Test
 
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_labels.jpg)
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch1_labels.jpg)
 ![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_labels.jpg)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_pred.jpg)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_labels.jpg)
+![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_pred.jpg)
 
 # ONNX Export
 
