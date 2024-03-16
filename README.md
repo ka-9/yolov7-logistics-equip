@@ -1,6 +1,10 @@
 # yolov7-logistics-equip
 
-A YOLOv7 Computer Vision Model with Inference API to classify material handling equipment (jacks, dollies, and bins).
+A YOLOv7 Computer Vision Model with Inference API that:
+- Preprocesses Synthetic Data (Images and Labels)
+- Fine-tunes a YOLOv7 model on Custom Synthetic Data
+- Classifes material handling equipment (jacks, dollies, and bins)
+- Working on Dockerizing the ONNX model API 
 
 # Procedure
 
