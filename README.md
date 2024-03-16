@@ -104,17 +104,34 @@ BMW_data
 
 - After training was finished, we obtained the results below:
 
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/F1_curve.png)
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/P_curve.png)
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/R_curve.png)
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/results.png)
+<div style="display:flex; flex-wrap:wrap;">
+  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/F1_curve.png" alt="img" style="width:100%;">
+  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/P_curve.png" alt="img" style="width:100%;">
+  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/R_curve.png" alt="img" style="width:100%;">
+  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/results.png" alt="img" style="width:100%;">        
+</div>
 
 ## Inference Test
 
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_labels.jpg)
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_pred.jpg)
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_labels.jpg)
-![img](https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_pred.jpg)
+<div style="display:flex; flex-wrap:wrap;">
+    <div style="width:45%; margin:5px;">
+        <h3>Ground truth</h3>
+        <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_labels.jpg" alt="img" style="width:100%;">
+    </div>
+    <div style="width:45%; margin:5px;">
+        <h3>Prediction</h3>
+        <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch2_pred.jpg" alt="img" style="width:100%;">
+    </div>
+    <div style="width:45%; margin:5px;">
+        <h3>Ground truth</h3>
+        <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_labels.jpg" alt="img" style="width:100%;">
+    </div>
+    <div style="width:45%; margin:5px;">
+        <h3>Prediction</h3>
+        <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/test_batch0_pred.jpg" alt="img" style="width:100%;">
+    </div>
+</div>
+
 
 # ONNX Export
 
