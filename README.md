@@ -10,25 +10,16 @@ A YOLOv7 Computer Vision Model with Inference API to classify material handling 
 
 BMW_data
 
-├── train.csv
-
-├── test.csv
-
-├── images
-
-│   ├── train
-
-│   ├── test
-
-│   └── val
-
-└── labels
-
-  ├── train
-
-  ├── test
-
-  └── val
+├── train.csv  
+├── test.csv  
+├── images  
+│   ├── train  
+│   ├── test  
+│   └── val  
+└── labels  
+  ├── train  
+  ├── test  
+  └── val  
 
 ---
 
@@ -105,10 +96,10 @@ BMW_data
 - After training was finished, we obtained the results below:
 
 <div style="display:flex; flex-wrap:wrap;">
-  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/F1_curve.png" alt="img" style="width:100%;">
-  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/P_curve.png" alt="img" style="width:100%;">
-  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/R_curve.png" alt="img" style="width:100%;">
-  <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/results.png" alt="img" style="width:100%;">        
+    <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/F1_curve.png" alt="img" style="width:45%; margin:5px;">
+    <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/P_curve.png" alt="img" style="width:45%; margin:5px;">
+    <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/R_curve.png" alt="img" style="width:45%; margin:5px;">
+    <img src="https://github.com/ka-9/yolov7-logistics-equip/blob/main/yolov7/runs/train/yolo_bmw_det3/results.png" alt="img" style="width:45%; margin:5px;">
 </div>
 
 ## Inference Test
